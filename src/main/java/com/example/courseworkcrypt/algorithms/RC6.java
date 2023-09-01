@@ -211,7 +211,7 @@ public class RC6 {
             case CBC -> {
                 for (i = 0; i < in.length + lenght; i++) {
                     if (i > 0 && i % 16 == 0) {
-                        xor(bloc, iv);
+                        bloc = xor(bloc, iv);
                         bloc = encryptBloc(bloc);
                         System.arraycopy(bloc, 0, iv, 0, bloc.length);
                         System.arraycopy(bloc, 0, tmp, i - 16, bloc.length);
@@ -225,7 +225,7 @@ public class RC6 {
 
                 }
                 if (bloc.length == 16) {
-                    xor(bloc, iv);
+                    bloc = xor(bloc, iv);
                     bloc = encryptBloc(bloc);
                     System.arraycopy(bloc, 0, tmp, i - 16, bloc.length);
                 }
@@ -331,8 +331,6 @@ public class RC6 {
         byte[] tmp = new byte[in.length];
         byte[] bloc = new byte[16];
         int i;
-        byte[] ivcopy = new byte[iv.length];
-        System.arraycopy(iv, 0, ivcopy, 0, iv.length);
         switch (encMode) {
             case ECB -> {
                 for (i = 0; i < in.length; i++) {
@@ -352,14 +350,14 @@ public class RC6 {
                     if (i > 0 && i % 16 == 0) {
                         System.arraycopy(bloc, 0, bloc1, 0, 16);
                         bloc = decryptBloc(bloc);
-                        xor(bloc, iv);
+                        bloc = xor(bloc, iv);
                         System.arraycopy(bloc1, 0, iv, 0, 16);
                         System.arraycopy(bloc, 0, tmp, i - 16, bloc.length);
                     }
                     bloc[i % 16] = in[i];
                 }
                 bloc = decryptBloc(bloc);
-                xor(bloc, iv);
+                bloc = xor(bloc, iv);
                 System.arraycopy(bloc, 0, tmp, i - 16, bloc.length);
             }
             case CFB -> {
