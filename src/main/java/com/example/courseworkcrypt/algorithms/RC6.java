@@ -167,23 +167,15 @@ public class RC6 {
         RD
     }
 
-//    public static byte[] xor(byte[] arr1, byte[] arr2) {
-//        byte[] arr3 = new byte[Math.min(arr1.length, arr2.length)];
-//
-//        int i = 0;
-//        for(byte b : arr3){
-//            arr3[i] = (byte) (arr1[i]^arr2[i]);
-//            i++;
-//        }
-//        return arr3;
-//    }
-    private static byte[] xor(byte[] valueLeft, byte[] valueRight)
-    {
-        for (int i = 0; i < valueLeft.length; i++)
-        {
-            valueLeft[i] = (byte)(valueLeft[i] ^ valueRight[i]);
+    public static byte[] xor(byte[] arr1, byte[] arr2) {
+        byte[] arr3 = new byte[Math.min(arr1.length, arr2.length)];
+
+        int i = 0;
+        for(byte b : arr3){
+            arr3[i] = (byte) (arr1[i]^arr2[i]);
+            i++;
         }
-        return valueLeft;
+        return arr3;
     }
 
     public static byte[] encrypt(byte[] in, byte[] key, byte[] iv, encryptionMode encMode){
@@ -339,6 +331,8 @@ public class RC6 {
         byte[] tmp = new byte[in.length];
         byte[] bloc = new byte[16];
         int i;
+        byte[] ivcopy = new byte[iv.length];
+        System.arraycopy(iv, 0, ivcopy, 0, iv.length);
         switch (encMode) {
             case ECB -> {
                 for (i = 0; i < in.length; i++) {
@@ -352,6 +346,7 @@ public class RC6 {
                 System.arraycopy(bloc, 0, tmp, i - 16, bloc.length);
             }
             case CBC -> {
+
                 byte[] bloc1 = new byte[16];
                 for (i = 0; i < in.length; i++) {
                     if (i > 0 && i % 16 == 0) {

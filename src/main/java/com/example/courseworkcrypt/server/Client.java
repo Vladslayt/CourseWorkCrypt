@@ -37,7 +37,9 @@ public class Client {
             while (offset < fileByte.length && (numRead = is.read(fileByte, offset, fileByte.length-offset)) >= 0) {
                 offset += numRead;
             }
-            fileByte = RC6.encrypt(fileByte, sessionKey, iv, encMode);
+            byte[] ivcopy = new byte[iv.length];
+            System.arraycopy(iv, 0, ivcopy, 0, iv.length);
+            fileByte = RC6.encrypt(fileByte, sessionKey, ivcopy, encMode);
             serv.getFile(fileByte, file.getName());
         }
         catch (Exception e){
@@ -54,7 +56,9 @@ public class Client {
         while (offset < fileByte.length && (numRead=is.read(fileByte, offset, fileByte.length-offset)) >= 0) {
             offset += numRead;
         }
-        fileByte = RC6.decrypt(fileByte, sessionKey, iv, encMode);
+        byte[] ivcopy = new byte[iv.length];
+        System.arraycopy(iv, 0, ivcopy, 0, iv.length);
+        fileByte = RC6.decrypt(fileByte, sessionKey, ivcopy, encMode);
         File file1 = new File("D:\\Программы\\IntelliJ IDEA Community Edition 2020.3.2\\CourseWorkCrypt\\src\\main\\resources\\client\\" + fn.substring(0, fn.length()-4));
 
         FileOutputStream os = new FileOutputStream(file1);
