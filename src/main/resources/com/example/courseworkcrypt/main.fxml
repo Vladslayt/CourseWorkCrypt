@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.courseworkcrypt.ui.HelloController">
+   <children>
+      <Label layoutX="68.0" layoutY="49.0" text="Выберете режим шифрования">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="helloButton" layoutX="133.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#onHelloButtonClick" prefHeight="44.0" prefWidth="83.0" text="Ок">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <ChoiceBox fx:id="EncModesCB" layoutX="99.0" layoutY="103.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
